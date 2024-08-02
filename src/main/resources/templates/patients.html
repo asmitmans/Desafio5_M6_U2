@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pacientes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    </head>
+
+<body class="bg-dark text-light">
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center my-3">
+        <h1>Pacientes</h1>
+        <a href="/patients/create" class="btn btn-primary">Crear Paciente</a>
+    </div>
+    <div class="mb-4 border-opacity-10">
+        <table class="table table-dark table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>RUT</th>
+                    <th>Edad</th>
+                    <th>Ingreso</th>
+                    <th>Alta</th>
+                    <th>Diagnóstico</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="patient : ${patients}">
+                    <th th:text="${patient.id}"></th>
+                    <td th:text="${patient.fullName}"></td>
+                    <td th:text="${patient.rut}"></td>
+                    <td th:text="${patient.age}"></td>
+                    <td th:text="${patient.admissionDate}"></td>
+                    <td th:text="${patient.dischargeDate}"></td>
+                    <td th:text="${patient.diagnosis}"></td>
+                    <td>
+                        <div class="d-flex">
+                            <a th:href="@{'/patients/' + ${patient.id} + '/edit'}" class="btn btn-link text-light text-decoration-underline">Editar</a>
+                            <form th:action="@{'/patients/' + ${patient.id} + '/delete'}" method="post" onsubmit="return confirm('¿Desea borrar el registro de este paciente?')">
+                                <button type="submit" class="btn btn-link text-light text-decoration-underline">Borrar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+</html>
